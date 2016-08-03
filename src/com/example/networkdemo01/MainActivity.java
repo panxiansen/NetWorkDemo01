@@ -42,10 +42,7 @@ public class MainActivity extends Activity implements OnClickListener{
 			case SHOW_RESPONSE:
 				String response = (String)msg.obj;
 				textResponse.setText(response);
-				break;
-
-			default:
-				break;
+				
 			}
 		}
 	};
@@ -56,6 +53,9 @@ public class MainActivity extends Activity implements OnClickListener{
 		setContentView(R.layout.activity_main);
 		sendRequest = (Button)findViewById(R.id.send_request);
 		textResponse = (TextView)findViewById(R.id.text_response);
+		sendRequest.setOnClickListener(this);
+		Log.d("test", "OK");
+		
 	}
 
 	@Override
@@ -85,9 +85,7 @@ public class MainActivity extends Activity implements OnClickListener{
                 try {  
                     String cityName = URLEncoder.encode("π„÷›", "utf-8");  
                     url = new URL(  
-                            "http://v.juhe.cn/weather/index?format=2&cityname="  
-                                    + cityName  
-                                    + "&key=283a0a5758e7077da40b4fea4860a6e6");  
+                            "http://v.juhe.cn/weather/index?format=2&cityname=%E5%B9%BF%E5%B7%9E&key=283a0a5758e7077da40b4fea4860a6e6");  
                     connection = (HttpURLConnection) url.openConnection();  
                     connection.setRequestMethod("GET");  
                     connection.setConnectTimeout(8000);  
@@ -102,7 +100,6 @@ public class MainActivity extends Activity implements OnClickListener{
                         response.append(line);  
                     }  
                     System.out.println("response=" + response.toString());  
-                    //parseWithJSON(response.toString());  
                     parseWeatherWithJSON(response.toString());  
                     parseWithJSON(response.toString());
                     Message message = new Message();  
